@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
-public class ArrayListCuncurency {
+public class ArrayListConcurrency {
     // 偶尔能够正常运行 得2000
     static List<Integer> arrayList = new ArrayList<>(10);
 
