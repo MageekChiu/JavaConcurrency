@@ -4,12 +4,14 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class HashMapConcurrency {
+
     // 偶尔能够正常运行
 //    static Map<String,String> map = new HashMap<>();
 
-    // 一直能够正常运行
-//    static Map<String,String> map = new Hashtable<>();
-    static Map<String,String> map = new ConcurrentHashMap<>();
+    // 一直能够正常运行 性能依次递增
+    static Map<String,String> map = new Hashtable<>();
+//    static Map<String,String> map = Collections.synchronizedMap(new HashMap<>());
+//    static Map<String,String> map = new ConcurrentHashMap<>();
 
     public static class AddThread implements Runnable{
 
