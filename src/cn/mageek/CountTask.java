@@ -13,7 +13,7 @@ import java.util.concurrent.RecursiveTask;
  * @date: 2017-11-13:15:15
  */
 public class CountTask  extends RecursiveTask<Long>{
-    private static final int THRESHOLD = 1000;
+    private static final int THRESHOLD = 10000;
 
     private long start;
     private long end;
@@ -60,10 +60,11 @@ public class CountTask  extends RecursiveTask<Long>{
 
 
     public static void main(String[] args) {
+        Long end = 200000L;
+        long start = System.nanoTime();
         ForkJoinPool forkJoinPool = new ForkJoinPool();
-        CountTask task = new CountTask(0, 20000L);
+        CountTask task = new CountTask(0, end);
         ForkJoinTask<Long> result = forkJoinPool.submit(task);
-
         long res;
         try {
             res = result.get();
@@ -71,6 +72,15 @@ public class CountTask  extends RecursiveTask<Long>{
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        System.out.println((System.nanoTime()-start)/10_000);
+//        作为比较 发现数据量小了多线程不能体现优势
+        res = 0;
+        start = System.nanoTime();
+        for (int i = 0;i<=end;i++){
+            res +=i;
+        }
+        System.out.println("res=" + res);
+        System.out.println((System.nanoTime()-start)/10_000);
     }
 }
 
