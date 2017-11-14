@@ -6,6 +6,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 /**
  * @description: Fork/Join Test
@@ -29,9 +31,11 @@ public class CountTask  extends RecursiveTask<Long>{
         long sum = 0;
         boolean canCompute = (end - start) < THRESHOLD;
         if (canCompute) {
-            for (long i = start; i <= end; i++) {
-                sum += i;
-            }
+//            for (long i = start; i <= end; i++) {
+//                sum += i;
+//            }
+            // rangeClosed包含最后的结束节点，range不包含。
+            sum = LongStream.rangeClosed(start,end).sum();
         } else {
             long step = (start + end) / 100;
 
